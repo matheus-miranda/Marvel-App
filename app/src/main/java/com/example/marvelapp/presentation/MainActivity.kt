@@ -26,8 +26,20 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavMain.setupWithNavController(navController)
 
+        // Inform the appBarConfiguration which are the top level fragments
         appBarConfiguration = AppBarConfiguration(
-            setOf()
+            setOf(R.id.charactersFragment, R.id.favoritesFragment, R.id.aboutFragment)
         )
+
+        binding.toolbarMain.setupWithNavController(navController, appBarConfiguration)
+
+        // Remove up button icon when on top level graph destination
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val isTopLevelDestination =
+                appBarConfiguration.topLevelDestinations.contains(destination.id)
+            if (!isTopLevelDestination) {
+                binding.toolbarMain.setNavigationIcon(R.drawable.ic_back)
+            }
+        }
     }
 }
