@@ -4,7 +4,7 @@ Multi-module app that allows you to fetch and favorite characters from the Marve
 
 ![Screenshot](https://user-images.githubusercontent.com/15269393/156079318-b171050f-62e8-412a-a18f-931b1e7f5795.png)
 
-
+# Modules:
 ## App module
  - Presentation and Framework
 
@@ -41,3 +41,7 @@ Multi-module app that allows you to fetch and favorite characters from the Marve
 - Mockito
 - Espresso
 
+## Steps required to run this app
+You must sign up for a Marvel Developer API key by clicking ![here](https://developer.marvel.com) and creating a apikey.properties file at the root folder of your project and entering the following info:
+PUBLIC_KEY="xxxxxxxx"
+PRIVATE_KEY="xxxxxxxx"
