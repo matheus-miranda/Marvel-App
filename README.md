@@ -42,6 +42,8 @@ Multi-module app that allows you to fetch and favorite characters from the Marve
 - Espresso
 
 ## Steps required to run this app
-You must sign up for a Marvel Developer API key by clicking ![here](https://developer.marvel.com) and creating a apikey.properties file at the root folder of your project and entering the following info:
+You must sign up for a Marvel Developer API key by clicking <a href="https://developer.marvel.com">here</a> and creating a apikey.properties file at the root folder of your project and entering the following info:
+```
 PUBLIC_KEY="xxxxxxxx"
 PRIVATE_KEY="xxxxxxxx"
+```
