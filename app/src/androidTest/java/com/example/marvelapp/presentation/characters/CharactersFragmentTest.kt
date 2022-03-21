@@ -41,8 +41,31 @@ class CharactersFragmentTest {
     @Test
     fun whenViewIsCreated_thenShowCharacters() {
         server.enqueue(MockResponse().setBody("characters_p1.json".asJsonString()))
+
         robot {
             checkCharactersRvIsDisplayed()
+        }
+    }
+
+    @Test
+    fun whenNewPageIsRequested_thenLoadMoreCharacters() {
+        with(server) {
+            enqueue(MockResponse().setBody("characters_p1.json".asJsonString()))
+            enqueue(MockResponse().setBody("characters_p2.json".asJsonString()))
+        }
+
+        robot {
+            scrollRecyclerViewToSecondPage()
+            checkIfCharacterAmoraIsLoaded()
+        }
+    }
+
+    @Test
+    fun whenReceivesAnApiError_thenShowErrorView() {
+        server.enqueue(MockResponse().setResponseCode(404))
+
+        robot {
+            checkForErrorView()
         }
     }
 }
