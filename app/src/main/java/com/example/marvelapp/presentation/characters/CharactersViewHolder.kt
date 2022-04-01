@@ -7,9 +7,11 @@ import br.com.msmlabs.core.domain.model.Character
 import com.bumptech.glide.Glide
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.ItemCharacterBinding
+import com.example.marvelapp.presentation.util.OnCharacterItemClick
 
 class CharactersViewHolder(
-    itemCharacterBinding: ItemCharacterBinding
+    itemCharacterBinding: ItemCharacterBinding,
+    private val onItemClick: OnCharacterItemClick
 ) : RecyclerView.ViewHolder(itemCharacterBinding.root) {
 
     private val textName = itemCharacterBinding.tvName
@@ -21,13 +23,20 @@ class CharactersViewHolder(
             .load(character.imageUrl)
             .fallback(R.drawable.ic_img_loading_error)
             .into(imageCharacter)
+
+        itemView.setOnClickListener {
+            onItemClick(character, imageCharacter)
+        }
     }
 
     companion object {
-        fun create(parent: ViewGroup): CharactersViewHolder {
+        fun create(
+            parent: ViewGroup,
+            onItemClick: OnCharacterItemClick
+        ): CharactersViewHolder {
             val inflater = LayoutInflater.from(parent.context)
             val itemBinding = ItemCharacterBinding.inflate(inflater, parent, false)
-            return CharactersViewHolder(itemBinding)
+            return CharactersViewHolder(itemBinding, onItemClick)
         }
     }
 }
