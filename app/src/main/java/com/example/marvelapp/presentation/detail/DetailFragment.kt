@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
-import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentDetailBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,6 +18,8 @@ class DetailFragment : Fragment() {
 
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
+
+    private val viewModel: DetailViewModel by viewModels()
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -36,9 +38,22 @@ class DetailFragment : Fragment() {
         val detailViewArg = args.detailsViewArgs
         binding.ivCharacter.run {
             transitionName = detailViewArg.name
-            imageLoader.load(this, detailViewArg.imageUrl, R.drawable.ic_img_loading_error)
+            imageLoader.load(this, detailViewArg.imageUrl)
         }
         setSharedElementTransitionOnEnter()
+
+        viewModel.uiState.observe(viewLifecycleOwner) { uiState ->
+            when (uiState) {
+                DetailViewModel.UiState.Loading -> {}
+                DetailViewModel.UiState.Error -> {}
+                is DetailViewModel.UiState.Success -> binding.rvParentDetail.run {
+                    setHasFixedSize(true)
+                    adapter = DetailParentAdapter(uiState.detailParentList, imageLoader)
+                }
+            }
+        }
+
+        viewModel.getComics(detailViewArg.characterId)
     }
 
     // Define transition animation as "move"
