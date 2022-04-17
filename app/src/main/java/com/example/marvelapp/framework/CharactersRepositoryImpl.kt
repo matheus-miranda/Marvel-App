@@ -5,6 +5,7 @@ import br.com.msmlabs.core.data.repository.CharactersRemoteDataSource
 import br.com.msmlabs.core.data.repository.CharactersRepository
 import br.com.msmlabs.core.domain.model.Character
 import br.com.msmlabs.core.domain.model.Comics
+import br.com.msmlabs.core.domain.model.Event
 import com.example.marvelapp.framework.paging.CharactersPagingSource
 import javax.inject.Inject
 
@@ -18,5 +19,9 @@ class CharactersRepositoryImpl @Inject constructor(
 
     override suspend fun getComics(characterId: Int): List<Comics> {
         return remoteDataSource.fetchComics(characterId)
+    }
+
+    override suspend fun getEvents(characterId: Int): List<Event> {
+        return remoteDataSource.fetchEvents(characterId)
     }
 }

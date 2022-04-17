@@ -3,9 +3,11 @@ package com.example.marvelapp.framework.remote
 import br.com.msmlabs.core.data.repository.CharactersRemoteDataSource
 import br.com.msmlabs.core.domain.model.CharacterPaging
 import br.com.msmlabs.core.domain.model.Comics
+import br.com.msmlabs.core.domain.model.Event
 import com.example.marvelapp.framework.network.MarvelApi
 import com.example.marvelapp.framework.network.response.toCharacterModel
 import com.example.marvelapp.framework.network.response.toComicModel
+import com.example.marvelapp.framework.network.response.toEventModel
 import javax.inject.Inject
 
 class RetrofitCharactersDataSource @Inject constructor(
@@ -23,6 +25,12 @@ class RetrofitCharactersDataSource @Inject constructor(
     override suspend fun fetchComics(characterId: Int): List<Comics> {
         return marvelApi.getComics(characterId).data.results.map {
             it.toComicModel()
+        }
+    }
+
+    override suspend fun fetchEvents(characterId: Int): List<Event> {
+        return marvelApi.getEvents(characterId).data.results.map {
+            it.toEventModel()
         }
     }
 }
