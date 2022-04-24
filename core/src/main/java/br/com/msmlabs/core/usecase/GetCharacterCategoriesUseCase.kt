@@ -4,7 +4,7 @@ import br.com.msmlabs.core.data.repository.CharactersRepository
 import br.com.msmlabs.core.domain.model.Comics
 import br.com.msmlabs.core.domain.model.Event
 import br.com.msmlabs.core.usecase.GetCharacterCategoriesUseCase.GetComicsParams
-import br.com.msmlabs.core.usecase.base.AppCoroutinesDispatchers
+import br.com.msmlabs.core.usecase.base.CoroutinesDispatchers
 import br.com.msmlabs.core.usecase.base.ResultStatus
 import br.com.msmlabs.core.usecase.base.UseCase
 import kotlinx.coroutines.async
@@ -20,11 +20,11 @@ interface GetCharacterCategoriesUseCase {
 
 class GetCharacterCategoriesUseCaseImpl @Inject constructor(
     private val repository: CharactersRepository,
-    private val dispatchers: AppCoroutinesDispatchers
+    private val dispatchers: CoroutinesDispatchers
 ) : GetCharacterCategoriesUseCase, UseCase<GetComicsParams, Pair<List<Comics>, List<Event>>>() {
 
     override suspend fun doWork(params: GetComicsParams): ResultStatus<Pair<List<Comics>, List<Event>>> {
-        return withContext(dispatchers.io) {
+        return withContext(dispatchers.io()) {
             val comicsDeferred = async { repository.getComics(params.characterId) }
             val eventsDeferred = async { repository.getEvents(params.characterId) }
 
