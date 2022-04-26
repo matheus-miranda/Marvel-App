@@ -3,14 +3,13 @@ package com.example.marvelapp.framework.paging
 import androidx.paging.PagingSource
 import br.com.msmlabs.core.data.repository.CharactersRemoteDataSource
 import br.com.msmlabs.core.domain.model.Character
-import com.example.marvelapp.factory.response.DataWrapperResponseFactory
-import com.example.marvelapp.framework.network.response.DataWrapperResponse
+import com.example.marvelapp.factory.response.CharacterPagingFactory
 import com.example.testing.MainCoroutineRule
 import com.example.testing.model.CharacterFactory
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -27,9 +26,9 @@ class CharactersPagingSourceTest {
     var mainCoroutineRule = MainCoroutineRule()
 
     @Mock
-    lateinit var remoteDataSource: CharactersRemoteDataSource<DataWrapperResponse>
+    lateinit var remoteDataSource: CharactersRemoteDataSource
 
-    private val dataWrapperResponseFactory = DataWrapperResponseFactory()
+    private val dataWrapperResponseFactory = CharacterPagingFactory()
 
     private val characterFactory = CharacterFactory()
 
@@ -41,7 +40,7 @@ class CharactersPagingSourceTest {
     }
 
     @Test
-    fun `should return a success load result when load is called`() = runBlockingTest {
+    fun `should return a success load result when load is called`() = runTest {
         // Arrange
         whenever(remoteDataSource.fetchCharacters(any())).thenReturn(dataWrapperResponseFactory.create())
 
@@ -62,7 +61,7 @@ class CharactersPagingSourceTest {
     }
 
     @Test
-    fun `should return an error load result when load is called`() = runBlockingTest {
+    fun `should return an error load result when load is called`() = runTest {
         val exception = RuntimeException()
         whenever(remoteDataSource.fetchCharacters(any())).thenThrow(exception)
 
