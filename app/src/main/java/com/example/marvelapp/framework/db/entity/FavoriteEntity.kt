@@ -4,6 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import br.com.msmlabs.core.data.DbConstants
+import br.com.msmlabs.core.domain.model.Character
 
 @Entity(tableName = DbConstants.FAVORITES_TABLE_NAME)
 data class FavoriteEntity(
@@ -17,3 +18,11 @@ data class FavoriteEntity(
     @ColumnInfo(name = DbConstants.FAVORITES_COLUMN_INFO_IMAGE_URL)
     val imageUrl: String
 )
+
+fun List<FavoriteEntity>.toCharactersModel() = map {
+    Character(
+        it.id,
+        it.name,
+        it.imageUrl
+    )
+}
