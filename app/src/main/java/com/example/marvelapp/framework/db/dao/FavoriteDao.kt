@@ -1,6 +1,10 @@
 package com.example.marvelapp.framework.db.dao
 
-import androidx.room.*
+import androidx.room.Query
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Delete
+import androidx.room.OnConflictStrategy
 import br.com.msmlabs.core.data.DbConstants
 import com.example.marvelapp.framework.db.entity.FavoriteEntity
 import kotlinx.coroutines.flow.Flow

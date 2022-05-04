@@ -1,6 +1,11 @@
 package com.example.marvelapp.framework.di
 
-import br.com.msmlabs.core.usecase.*
+import br.com.msmlabs.core.usecase.GetCharactersUseCaseImpl
+import br.com.msmlabs.core.usecase.GetCharactersUseCase
+import br.com.msmlabs.core.usecase.GetCharacterCategoriesUseCaseImpl
+import br.com.msmlabs.core.usecase.GetCharacterCategoriesUseCase
+import br.com.msmlabs.core.usecase.AddFavoriteUseCaseImpl
+import br.com.msmlabs.core.usecase.AddFavoriteUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

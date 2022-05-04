@@ -15,9 +15,12 @@ import dagger.hilt.components.SingletonComponent
 object DatabaseModule {
 
     @Provides
-    fun provideAppDatabase(@ApplicationContext context: Context) = Room.databaseBuilder(
+    fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase = Room.databaseBuilder(
         context,
         AppDatabase::class.java,
         DbConstants.APP_DATABASE_NAME
     ).build()
+
+    @Provides
+    fun provideFavoriteDao(appDatabase: AppDatabase) = appDatabase.favoriteDao()
 }
