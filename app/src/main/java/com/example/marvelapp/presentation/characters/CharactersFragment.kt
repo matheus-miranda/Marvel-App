@@ -57,28 +57,17 @@ class CharactersFragment : Fragment() {
     }
 
     private fun initCharactersAdapter() {
-        charactersAdapter = CharactersAdapter(imageLoader) { character, view ->
-            val extras = FragmentNavigatorExtras(
-                view to character.name
-            )
-
-            val directions = CharactersFragmentDirections.actionCharactersFragmentToDetailFragment(
-                character.name,
-                DetailViewArgs(
-                    characterId = character.id,
-                    name = character.name,
-                    imageUrl = character.imageUrl
-                )
-            )
-
-            findNavController().navigate(directions, extras)
-        }
+        postponeEnterTransition()
         with(binding.rvCharacters) {
             scrollToPosition(0)
             setHasFixedSize(true)
             adapter = charactersAdapter.withLoadStateFooter(
                 footer = CharactersLoadingStateAdapter(charactersAdapter::retry)
             )
+            viewTreeObserver.addOnPreDrawListener {
+                startPostponedEnterTransition()
+                true
+            }
         }
     }
 
