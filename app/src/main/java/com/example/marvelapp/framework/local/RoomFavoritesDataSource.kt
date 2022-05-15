@@ -27,5 +27,9 @@ class RoomFavoritesDataSource @Inject constructor(
         favoriteDao.deleteFavorite(character.toFavoriteEntity())
     }
 
+    override suspend fun isFavorite(characterId: Int): Boolean {
+        return favoriteDao.hasFavorite(characterId) != null
+    }
+
     private fun Character.toFavoriteEntity() = FavoriteEntity(id, name, imageUrl)
 }

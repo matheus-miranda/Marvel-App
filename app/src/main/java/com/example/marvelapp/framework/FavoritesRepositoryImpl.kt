@@ -21,4 +21,8 @@ class FavoritesRepositoryImpl @Inject constructor(
     override suspend fun deleteFavorite(character: Character) {
         favoritesLocalDataSource.delete(character)
     }
+
+    override suspend fun isFavorite(characterId: Int): Boolean {
+        return favoritesLocalDataSource.isFavorite(characterId)
+    }
 }
