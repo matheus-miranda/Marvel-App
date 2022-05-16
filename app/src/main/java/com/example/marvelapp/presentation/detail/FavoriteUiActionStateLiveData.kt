@@ -7,19 +7,32 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.switchMap
 import br.com.msmlabs.core.usecase.AddFavoriteUseCase
+import br.com.msmlabs.core.usecase.CheckFavoriteUseCase
 import com.example.marvelapp.R
 import com.example.marvelapp.presentation.extensions.watchStatus
 import kotlin.coroutines.CoroutineContext
 
 class FavoriteUiActionStateLiveData(
     private val coroutinesContext: CoroutineContext,
+    private val checkFavoriteUseCase: CheckFavoriteUseCase,
     private val addFavoriteUseCase: AddFavoriteUseCase
 ) {
     private val action = MutableLiveData<Action>()
     val state: LiveData<UiState> = action.switchMap {
         liveData(coroutinesContext) {
             when (it) {
-                Action.Default -> emit(UiState.Icon(R.drawable.ic_favorite_unchecked))
+                is Action.CheckFavorite -> {
+                    checkFavoriteUseCase(CheckFavoriteUseCase.Params(it.characterId)).watchStatus(
+                        success = { isFavorite ->
+                            var icon = R.drawable.ic_favorite_unchecked
+                            if (isFavorite) {
+                                icon = R.drawable.ic_favorite_checked
+                            }
+                            emit(UiState.Icon(icon))
+                        },
+                        error = {}
+                    )
+                }
                 is Action.Update -> {
                     it.detailViewArgs.run {
                         addFavoriteUseCase(
@@ -43,8 +56,8 @@ class FavoriteUiActionStateLiveData(
         }
     }
 
-    fun setDefault() {
-        action.value = Action.Default
+    fun checkFavorite(characterId: Int) {
+        action.value = Action.CheckFavorite(characterId)
     }
 
     fun update(detailViewArg: DetailViewArgs) {
@@ -58,7 +71,7 @@ class FavoriteUiActionStateLiveData(
     }
 
     sealed class Action {
-        object Default : Action()
+        data class CheckFavorite(val characterId: Int) : Action()
         data class Update(val detailViewArgs: DetailViewArgs) : Action()
     }
 }
