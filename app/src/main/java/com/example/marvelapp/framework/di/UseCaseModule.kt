@@ -8,6 +8,8 @@ import br.com.msmlabs.core.usecase.AddFavoriteUseCaseImpl
 import br.com.msmlabs.core.usecase.AddFavoriteUseCase
 import br.com.msmlabs.core.usecase.CheckFavoriteUseCase
 import br.com.msmlabs.core.usecase.CheckFavoriteUseCaseImpl
+import br.com.msmlabs.core.usecase.RemoveFavoriteUseCase
+import br.com.msmlabs.core.usecase.RemoveFavoriteUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -28,4 +30,7 @@ interface UseCaseModule {
 
     @Binds
     fun bindCheckFavoriteUseCase(useCase: CheckFavoriteUseCaseImpl): CheckFavoriteUseCase
+
+    @Binds
+    fun bindRemoveFavoriteUseCase(useCase: RemoveFavoriteUseCaseImpl): RemoveFavoriteUseCase
 }
