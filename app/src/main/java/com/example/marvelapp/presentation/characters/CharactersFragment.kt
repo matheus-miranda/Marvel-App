@@ -13,6 +13,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
+import com.example.marvelapp.presentation.characters.adapters.CharactersAdapter
+import com.example.marvelapp.presentation.characters.adapters.CharactersLoadMoreStateAdapter
 import com.example.marvelapp.presentation.detail.DetailViewArgs
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -76,7 +78,7 @@ class CharactersFragment : Fragment() {
         with(binding.rvCharacters) {
             setHasFixedSize(true)
             adapter = charactersAdapter.withLoadStateFooter(
-                footer = CharactersLoadingStateAdapter(charactersAdapter::retry)
+                footer = CharactersLoadMoreStateAdapter(charactersAdapter::retry)
             )
             viewTreeObserver.addOnPreDrawListener {
                 startPostponedEnterTransition()
