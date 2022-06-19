@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.marvelapp.R
 import com.example.marvelapp.databinding.ActivityMainBinding
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbarMain)
 
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_container) as NavHostFragment
@@ -30,9 +32,10 @@ class MainActivity : AppCompatActivity() {
 
         // Inform the appBarConfiguration which are the top level fragments
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.charactersFragment, R.id.favoritesFragment, R.id.aboutFragment)
+            setOf(R.id.charactersFragment, R.id.favoritesFragment, R.id.aboutFragment, R.id.sortFragment)
         )
 
+        setupActionBarWithNavController(navController, appBarConfiguration)
         binding.toolbarMain.setupWithNavController(navController, appBarConfiguration)
 
         // Remove up button icon when on top level graph destination

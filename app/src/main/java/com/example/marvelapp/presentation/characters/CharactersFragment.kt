@@ -2,6 +2,9 @@ package com.example.marvelapp.presentation.characters
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
@@ -11,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import com.example.marvelapp.R
 import com.example.marvelapp.databinding.FragmentCharactersBinding
 import com.example.marvelapp.framework.imageloader.ImageLoader
 import com.example.marvelapp.presentation.characters.adapters.CharactersAdapter
@@ -29,6 +33,9 @@ class CharactersFragment : Fragment() {
     private val binding: FragmentCharactersBinding get() = _binding!!
 
     private val viewModel: CharactersViewModel by viewModels()
+
+    @Inject
+    lateinit var imageLoader: ImageLoader
 
     private val headerAdapter: CharactersRefreshStateAdapter by lazy {
         CharactersRefreshStateAdapter(
@@ -55,8 +62,10 @@ class CharactersFragment : Fragment() {
         }
     }
 
-    @Inject
-    lateinit var imageLoader: ImageLoader
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -133,6 +142,20 @@ class CharactersFragment : Fragment() {
             if (visibility) {
                 startShimmer()
             } else stopShimmer()
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.character_menu_items, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_sort -> {
+                findNavController().navigate(R.id.action_charactersFragment_to_sortFragment)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
