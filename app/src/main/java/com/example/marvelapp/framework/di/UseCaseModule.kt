@@ -8,6 +8,8 @@ import br.com.msmlabs.core.usecase.AddFavoriteUseCaseImpl
 import br.com.msmlabs.core.usecase.AddFavoriteUseCase
 import br.com.msmlabs.core.usecase.CheckFavoriteUseCase
 import br.com.msmlabs.core.usecase.CheckFavoriteUseCaseImpl
+import br.com.msmlabs.core.usecase.GetCharactersSortingUseCase
+import br.com.msmlabs.core.usecase.GetCharactersSortingUseCaseImpl
 import br.com.msmlabs.core.usecase.GetFavoritesUseCase
 import br.com.msmlabs.core.usecase.GetFavoritesUseCaseImpl
 import br.com.msmlabs.core.usecase.RemoveFavoriteUseCase
@@ -38,4 +40,7 @@ interface UseCaseModule {
 
     @Binds
     fun bindGetFavoritesUseCase(useCase: GetFavoritesUseCaseImpl): GetFavoritesUseCase
+
+    @Binds
+    fun bindGetCharactersSortingUseCase(useCase: GetCharactersSortingUseCaseImpl): GetCharactersSortingUseCase
 }
