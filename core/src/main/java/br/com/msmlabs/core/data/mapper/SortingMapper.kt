@@ -8,7 +8,7 @@ class SortingMapper @Inject constructor() {
 
     fun mapToPair(sorting: String): Pair<String, String> {
         val nameAscending = SortingType.ORDER_BY_NAME.value to SortingType.ORDER_ASCENDING.value
-        val nameDescending = SortingType.ORDER_BY_NAME.value to SortingType.ORDER_BY_MODIFIED.value
+        val nameDescending = SortingType.ORDER_BY_NAME.value to SortingType.ORDER_DESCENDING.value
         val modifiedAscending = SortingType.ORDER_BY_MODIFIED.value to SortingType.ORDER_ASCENDING.value
         val modifiedDescending = SortingType.ORDER_BY_MODIFIED.value to SortingType.ORDER_DESCENDING.value
 
