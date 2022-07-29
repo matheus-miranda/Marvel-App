@@ -5,6 +5,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import com.example.marvelapp.R
+import com.example.marvelapp.presentation.characters.adapters.CharactersViewHolder
 
 class CharactersRobot {
 

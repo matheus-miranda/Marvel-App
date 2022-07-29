@@ -1,17 +1,21 @@
 package com.example.marvelapp.framework.di
 
-import br.com.msmlabs.core.usecase.GetCharactersUseCaseImpl
-import br.com.msmlabs.core.usecase.GetCharactersUseCase
-import br.com.msmlabs.core.usecase.GetCharacterCategoriesUseCaseImpl
-import br.com.msmlabs.core.usecase.GetCharacterCategoriesUseCase
-import br.com.msmlabs.core.usecase.AddFavoriteUseCaseImpl
 import br.com.msmlabs.core.usecase.AddFavoriteUseCase
+import br.com.msmlabs.core.usecase.AddFavoriteUseCaseImpl
 import br.com.msmlabs.core.usecase.CheckFavoriteUseCase
 import br.com.msmlabs.core.usecase.CheckFavoriteUseCaseImpl
+import br.com.msmlabs.core.usecase.GetCharacterCategoriesUseCase
+import br.com.msmlabs.core.usecase.GetCharacterCategoriesUseCaseImpl
+import br.com.msmlabs.core.usecase.GetCharactersSortingUseCase
+import br.com.msmlabs.core.usecase.GetCharactersSortingUseCaseImpl
+import br.com.msmlabs.core.usecase.GetCharactersUseCase
+import br.com.msmlabs.core.usecase.GetCharactersUseCaseImpl
 import br.com.msmlabs.core.usecase.GetFavoritesUseCase
 import br.com.msmlabs.core.usecase.GetFavoritesUseCaseImpl
 import br.com.msmlabs.core.usecase.RemoveFavoriteUseCase
 import br.com.msmlabs.core.usecase.RemoveFavoriteUseCaseImpl
+import br.com.msmlabs.core.usecase.SaveCharactersSortingUseCase
+import br.com.msmlabs.core.usecase.SaveCharactersSortingUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -38,4 +42,10 @@ interface UseCaseModule {
 
     @Binds
     fun bindGetFavoritesUseCase(useCase: GetFavoritesUseCaseImpl): GetFavoritesUseCase
+
+    @Binds
+    fun bindGetCharactersSortingUseCase(useCase: GetCharactersSortingUseCaseImpl): GetCharactersSortingUseCase
+
+    @Binds
+    fun bindSaveCharactersSortingUseCase(useCase: SaveCharactersSortingUseCaseImpl): SaveCharactersSortingUseCase
 }
