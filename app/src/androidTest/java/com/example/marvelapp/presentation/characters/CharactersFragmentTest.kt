@@ -74,8 +74,10 @@ class CharactersFragmentTest {
     }
 
     @Test
-    fun whenReceivesAnApiError_thenShowErrorView() {
+    fun whenReceivesAnApiError_thenShowErrorView() = runBlocking {
         server.enqueue(MockResponse().setResponseCode(404))
+
+        delay(400)
 
         robot {
             checkForErrorView()
