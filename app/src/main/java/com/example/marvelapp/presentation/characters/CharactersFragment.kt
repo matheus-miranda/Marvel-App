@@ -7,7 +7,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.SearchView
+import android.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -39,6 +39,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener, MenuItem.
     private val viewModel: CharactersViewModel by viewModels()
 
     private lateinit var searchView: SearchView
+    private lateinit var searchItem: MenuItem
 
     @Inject
     lateinit var imageLoader: ImageLoader
@@ -178,7 +179,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener, MenuItem.
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.character_menu_items, menu)
 
-        val searchItem = menu.findItem(R.id.menu_search)
+        searchItem = menu.findItem(R.id.menu_search)
         searchView = searchItem.actionView as SearchView
 
         searchItem.setOnActionExpandListener(this)
@@ -230,6 +231,7 @@ class CharactersFragment : Fragment(), SearchView.OnQueryTextListener, MenuItem.
     override fun onDestroyView() {
         super.onDestroyView()
         searchView.setOnQueryTextListener(null)
+        searchItem.setOnActionExpandListener(null)
         _binding = null
     }
 

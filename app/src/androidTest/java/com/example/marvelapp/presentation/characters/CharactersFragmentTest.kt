@@ -1,5 +1,7 @@
 package com.example.marvelapp.presentation.characters
 
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.marvelapp.extension.asJsonString
 import com.example.marvelapp.framework.di.BaseUrlModule
@@ -8,6 +10,8 @@ import com.example.marvelapp.launchFragmentInHiltContainer
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -26,12 +30,16 @@ class CharactersFragmentTest {
 
     private lateinit var server: MockWebServer
 
+    private val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+
     private val robot by lazy { CharactersRobot() }
 
     @Before
     fun setUp() {
         server = MockWebServer().apply { start(port = 8080) }
-        launchFragmentInHiltContainer<CharactersFragment>()
+        launchFragmentInHiltContainer<CharactersFragment>(
+            navHostController = navController
+        )
     }
 
     @After
@@ -40,8 +48,10 @@ class CharactersFragmentTest {
     }
 
     @Test
-    fun whenViewIsCreated_thenShowCharacters() {
+    fun whenViewIsCreated_thenShowCharacters() = runBlocking {
         server.enqueue(MockResponse().setBody("characters_p1.json".asJsonString()))
+
+        delay(400)
 
         robot {
             checkCharactersRvIsDisplayed()
@@ -49,11 +59,13 @@ class CharactersFragmentTest {
     }
 
     @Test
-    fun whenNewPageIsRequested_thenLoadMoreCharacters() {
+    fun whenNewPageIsRequested_thenLoadMoreCharacters() = runBlocking {
         with(server) {
             enqueue(MockResponse().setBody("characters_p1.json".asJsonString()))
             enqueue(MockResponse().setBody("characters_p2.json".asJsonString()))
         }
+
+        delay(400)
 
         robot {
             scrollRecyclerViewToSecondPage()
