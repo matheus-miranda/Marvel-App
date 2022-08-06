@@ -51,7 +51,7 @@ class CharactersFragmentTest {
     fun whenViewIsCreated_thenShowCharacters() = runBlocking {
         server.enqueue(MockResponse().setBody("characters_p1.json".asJsonString()))
 
-        delay(400)
+        delay(500)
 
         robot {
             checkCharactersRvIsDisplayed()
@@ -65,7 +65,7 @@ class CharactersFragmentTest {
             enqueue(MockResponse().setBody("characters_p2.json".asJsonString()))
         }
 
-        delay(400)
+        delay(500)
 
         robot {
             scrollRecyclerViewToSecondPage()
@@ -77,7 +77,7 @@ class CharactersFragmentTest {
     fun whenReceivesAnApiError_thenShowErrorView() = runBlocking {
         server.enqueue(MockResponse().setResponseCode(404))
 
-        delay(400)
+        delay(500)
 
         robot {
             checkForErrorView()
