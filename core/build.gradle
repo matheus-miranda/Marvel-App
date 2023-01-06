@@ -10,7 +10,7 @@ java {
 
 dependencies {
     // OkHttp
-    api(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+    api(platform("com.squareup.okhttp3:okhttp-bom:4.9.0")) // api is used to share lib between modules
     api("com.squareup.okhttp3:okhttp")
     api("com.squareup.okhttp3:logging-interceptor")
 
@@ -22,7 +22,7 @@ dependencies {
     // Paging3 Common
     implementation "androidx.paging:paging-common:$paging_version"
 
-    // Javax Inject
+    // Javax Inject - So we can use the @Inject annotation for Hilt without having it heavily depend on Android frmwk
     implementation "javax.inject:javax.inject:1"
 
     // Coroutines core
